@@ -1,3 +1,5 @@
+#Reference: https://stat.ethz.ch/R-manual/R-devel/library/graphics/html/segments.html
+
 #Compute the graph of the segment means for a patient.
 setwd("/Users/stuti/Data/NBL/cnv")
 #read in the data file. This file has headers and it is tab separated.
