@@ -21,11 +21,19 @@ def is_mutation(filename):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Mutation count")
+    parser.add_argument("--dirname", default=None, help="path to directory conatining seg files")
     parser.add_argument("--filename", default=None, help="path to seg file")
 
     args = parser.parse_args()
 
-    if not os.path.isfile(args.filename):
-        raise Exception("Cannot find file: %s" %args.filename)
+    if not args.filename == None:
+        if not os.path.isfile(args.filename):
+            raise Exception("Cannot find file: %s" %args.filename)
+        print "%s\t%s" %(args.filename, is_mutation(args.filename))
 
-    print is_mutation(args.filename)
+    if not args.dirname == None:
+        if not os.path.isdir(args.dirname):
+            raise Exception("Cannot find directory: %s" %args.dirname)
+        for filename in os.listdir(args.dirname):
+            filename = os.path.join(args.dirname, filename)
+            print "%s\t%s" %(filename, is_mutation(filename))
