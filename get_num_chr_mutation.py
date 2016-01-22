@@ -12,7 +12,7 @@ def is_mutation(filename):
         if float(seg_mean) < -0.1 or float(seg_mean) > 0.1:
             if chromosome == "X" or chromosome == "x":
                 position = 22
-            if chromosome == "Y" or chromosome == "y":
+            elif chromosome == "Y" or chromosome == "y":
                 position = 23
             else:
                 position = int(chromosome) - 1
