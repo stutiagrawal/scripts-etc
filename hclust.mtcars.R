@@ -1,14 +1,18 @@
-#code to make coloured heirarchical clustering for the mtcars dataset.
-#reference: https://rpubs.com/gaston/dendrograms. This link is the original source for the following code, which is basically the same code.
+#code to create a coloured dendrogram of mtcars dataset
+#originally taken from : https://rpubs.com/gaston/dendrograms
 
+#number of clusters 
+num_clusters = 4
+# vector of colors
+labelColors = c('red', 'blue', 'darkgreen', 'darkgrey')
 d <- dist(as.matrix(mtcars))
 hc <- hclust(d)
+
+##########################################################################
 hcd <- as.dendrogram(hc)
-# vector of colors labelColors = c('red', 'blue', 'darkgreen', 'darkgrey',
-# 'purple')
-labelColors = c("#CDB380", "#036564", "#EB6841", "#EDC951")
+
 # cut dendrogram in 4 clusters
-clusMember = cutree(hc, 4)
+clusMember = cutree(hc, num_clusters)
 # function to get color labels
 colLab <- function(n) {
     if (is.leaf(n)) {
@@ -22,3 +26,12 @@ colLab <- function(n) {
 clusDendro = dendrapply(hcd, colLab)
 # make plot
 plot(clusDendro, main = "mtcars")
+
+###############################################################################
+
+#if branches also need to be coloured
+# load code of A2R function
+source("http://addictedtor.free.fr/packages/A2R/lastVersion/R/code.R")
+# colored dendrogram
+op = par(bg = "white")
+A2Rplot(hc, k = num_clusters, boxes = FALSE, col.up = "gray50", col.down = labelColors)
